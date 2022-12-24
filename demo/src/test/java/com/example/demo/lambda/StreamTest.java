@@ -3,6 +3,7 @@ package com.example.demo.lambda;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 
@@ -83,6 +84,21 @@ public class StreamTest {
         List<String> genderCodes2 = genders.stream().map(x -> (x == 1) ? "male" : "female").toList();
         
         System.out.println(genderCodes2);
+        
+        // (추가)
+        // filter도 마찬가지로 이렇게 쓰면 됨. 
+        genders.stream().map(new Function<Integer, String>() {
+            // 익명 클래스 부분
+            // 왜 써야하냐면 Function은 인터페이스니까 객체를 만들 수 없자나!
+            // T : genders에서 넘어오는 객체
+            // R : 우리가 RETURN할 객체
+            // Integer가 들어오면 String을 리턴함
+            @Override
+            public String apply(Integer t) {
+                // TODO Auto-generated method stub
+                return null;
+            }
+        }).toList();
         
     }
     
