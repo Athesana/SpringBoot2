@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Spring Boot</title>
+</head>
+<body>
+    <h1>Form submit</h1>
+    
+    <form th:action="@{/example/form-result}" method="post">
+        <div>
+            <label for="userName">USER NAME</label> <!-- ID를 찾는 label(element를 찾는다) -->
+            <input type="text" name="userName" id="userName" />
+        </div>
+        <div>
+            <label for="passWord">PASSWORD</label>
+            <input type="passWord" name="passWord" id="passWord"/>
+        </div>
+        <div>
+            <label for="due">DUE</label>
+            <input type="datetime-local" name="due" id="due" />
+        </div>
+        <div>
+            <label for="birthday">BIRTHDAY</label>
+            <input type="date" name="birthday" id="birthday" />
+        </div>
+        <div>
+            <input type="radio" name="alarm" value="true" id="agree" />
+            <label for="agree">알람 허용</label>
+            <input type="radio" name="alarm" value="false" id="disAgree" checked="checked"/>
+            <label for="disAgree">알람 거부</label>
+        </div>
+        <div>
+            <input type="checkbox" name="sns" id="checkBox1" value="K" />
+            <label for="checkBox1">카톡</label>
+            <input type="checkbox" name="sns" id="checkBox2" value="I" />
+            <label for="checkBox2">인스타</label>
+            <input type="checkbox" name="sns" id="checkBox3" value="T" />
+            <label for="checkBox3">트위터</label>
+            <input type="checkbox" name="sns" id="checkBox4" value="F" />
+            <label for="checkBox4">페이스북</label>
+        </div>
+        <div>
+            <input type="reset" value="취소" />
+            <input type="submit" value="작성완료" />            
+        </div>
+    </form>
+</body>
+</html>

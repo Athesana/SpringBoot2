@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Spring Boot</title>
+</head>
+<body>
+    <h1>결과 페이지</h1>
+    <!-- /* ${userName} : 컨트롤러에서 Model 객체에 추가한 Attribute 이름 */ -->
+    <p th:text="|사용자이름 : ${userName}|"></p>
+    <p th:text="|나이 : ${age}|"></p>
+</body>
+</html>

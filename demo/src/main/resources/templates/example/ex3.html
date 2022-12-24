@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Spring Boot</title>
+</head>
+<body>
+    <h1>Example 3</h1>
+    
+    <h2>Post submit</h2>
+    <form th:action="@{/example/ex3}" method="POST"> <!-- form에서 action 속성을 설정하지 않으면 현재 페이지로 다시 요청을 보낸다.(요청주소는 바뀌지 않지만 form 안의 값들이 넘어간다.) -->
+        <div>
+            <input type="text" name="userName" placeholder="사용자 이름"/>
+        </div>
+        <div>
+            <input type="number" name="age" placeholder="나이">
+        </div>
+        <div>
+            <input type="submit" value="제출"/>
+        </div>
+    </form>
+    
+    <hr/>
+    
+    <h2>GET submit</h2>
+     <form th:action="@{/example/ex4}" method="get"> <!-- form에서 action 속성을 설정하지 않으면 현재 페이지로 다시 요청을 보낸다. -->
+        <div>
+            <input type="text" name="userName" placeholder="사용자 이름"/>
+        </div>
+        <div>
+            <input type="number" name="age" placeholder="나이">
+        </div>
+        <div>
+            <input type="submit" value="제출"/>
+        </div>
+    </form>
+    
+</body>
+</html>
