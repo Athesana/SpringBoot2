@@ -64,6 +64,26 @@ public class StreamTest {
 
         System.out.println("홀수 제곱 모음 : " + oddSquares);
         
+        List<Integer> genders = Arrays.asList(1, 2, 1, 2, 1);
+        List<String> genderCodes = new ArrayList<>();
+        
+        for (Integer x : genders) {
+            /*
+            if(x == 1) {
+                genderCodes.add("남성");
+            } else {                
+                genderCodes.add("여성");
+            }
+            */
+            genderCodes.add((x == 1) ? "남성" : "여성");
+        }
+        
+        System.out.println(genderCodes);
+        
+        List<String> genderCodes2 = genders.stream().map(x -> (x == 1) ? "male" : "female").toList();
+        
+        System.out.println(genderCodes2);
+        
     }
     
 }
