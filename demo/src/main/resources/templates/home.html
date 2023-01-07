@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/base.html}">
+    <!-- base.html 파일을 데코레이트하겠다. (저기에 fragment들이 있는데, 거기에 들어갈 요소들을 여기 home.html에서 가지고 있겠다. -->
+
+<div layout:fragment="header">
+    <div th:replace="layout/header-frag::header('포스트 목록 페이지')"></div>
+    <!-- th:replace => 타임리프 라이브러리가 아니고 원래 타임리프 자체가 가지고 있는 기능
+                        "다른 데 만들어져 있는걸 여기로 가지고 오겠다"는 뜻
+    
+    (layout폴더 아래에 header-frag 파일이 있는데 그 파일에 header라고 하는 fragment 요소를 여기로 가지고 오겠다.)-->
+</div>
+
+<div layout:fragment="content">
+    <!-- 포스트 글 목록 - 테이블 -->
+    <div class="card my-2">
+        <div class="card-header">
+            <h5>포스트 목록</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover my-2">
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성시간</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="list : ${posts}">
+                        <td th:text="${list.boardNo}"></td>
+                        <td th:text="${list.title}"></td>
+                        <td th:text="${list.author}"></td>
+                        <td th:text="${list.createdTime}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+        </div>
+    </div>
+</div>
+
+</html>

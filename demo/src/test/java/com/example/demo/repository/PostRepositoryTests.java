@@ -91,6 +91,7 @@ public class PostRepositoryTests {
     @Test
     @Order(4)
     public void testDelete() {
+        // deleteById() 메서드 : select 문 호출 -> delete 문 호출
         postRepository.deleteById(2L);  // RETURN 타입이 없음
         
         List<Post> list =  postRepository.findAll(); // 전체 검색 (select 문)

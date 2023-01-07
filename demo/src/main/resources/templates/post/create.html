@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/base.html}">
+
+<div layout:fragment="header">
+    <div th:replace="~{ layout/header-frag::header('새 포스트 작성 페이지')}"></div>
+</div>
+
+<div layout:fragment="content">
+
+    <div class="card my-5">
+        <div class="card-header">
+            <h5>포스트 작성</h5>
+        </div>
+        <div class="card-body">
+            <form id="cardSubmit">
+                <div class="my-2">
+                    <label for="title" class="form-label">제목</label>
+                    <input id="title" type="text" class="form-control" autofocus="autofocus"/>
+                </div>
+                <div class="my-2">
+                    <label for="author" class="form-label">작성자</label>
+                    <input id="author" type="text" class="form-control" />
+                </div>
+                <div class="my-2">
+                    <label for="content" class="form-label">내용</label>
+                    <textarea id="content" class="form-control" rows="7"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-end" >
+                <button type="button" id="btnCreate" class="btn btn-success">등록</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block layout:fragment="scripts">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script th:src="@{/js/create.js}"></script>
+</th:block>
+
+</html>
