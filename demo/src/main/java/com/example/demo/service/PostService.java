@@ -57,7 +57,7 @@ public class PostService {
         //map은 자기가 전달받은 Post 객체 하나하나를 fromEntity 메서드에 아규먼트로 넘긴다.
         //그 다음 list로 만든다.
         //list.stream().map(x -> PostListResponseDto.fromEntity(x)).toList(); 와 같은 코드임
-        //람다식에서 아규먼트가 아규먼트로 들어갈 때 생략이 가능하고, 클래스 이름과 메서드 이름만 적어주돼 :: 를 적는다.
+        //람다식에서 아규먼트가 아규먼트로 들어갈 때 생략이 가능하고, 클래스 이름과 메서드 이름만 적어주 돼 :: 를 적는다.
         return list.stream().map(PostListResponseDto::fromEntity).toList();
     }
 
