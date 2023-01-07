@@ -31,9 +31,14 @@
                 <tbody>
                     <tr th:each="list : ${posts}">
                         <td th:text="${list.boardNo}"></td>
-                        <td th:text="${list.title}"></td>
+                        <td>
+                           <a th:href="@{/post/view/{boardNo} (boardNo=${list.boardNo}) }" th:text="${list.title}"></a> 
+                        </td>
                         <td th:text="${list.author}"></td>
+                        <!-- 
                         <td th:text="${list.createdTime}"></td>
+                         -->
+                        <td th:text="${ #temporals.format(list.createdTime, 'YYYY-MM-DD HH:mm:ss')}"></td>
                     </tr>
                 </tbody>
             </table>

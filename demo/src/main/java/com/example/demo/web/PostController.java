@@ -2,6 +2,7 @@ package com.example.demo.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,13 @@ public class PostController {
     public void create() {
         log.info("create() 호출");
         /*메서드 리턴타입이 void일 때는 리턴하는 view이름이 없기 때문에 spring은 요청주소랑 동일한 이름인 html을 찾는다.*/
+    }
+    
+    @GetMapping("/view/{boardNo}")
+    public String view(@PathVariable Long boardNo) {
+        log.info("view() 호출");
+        return "";
+        
     }
     
 }

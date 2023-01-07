@@ -1,5 +1,7 @@
 package com.example.demo.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 // 인터페이스는 다른 인터페이스를 상속할 수 있다. (interface extends interface) : 상위 인터페이스의 추상 메서드 정의들을 상속받는다.
@@ -10,5 +12,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 // Spring Data JPA를 사용하면, 스프링 부트 어플리케이션이 컴파일 할 때, 추상 메서드들이 자동으로 구현된다.
 public interface PostRepository extends JpaRepository<Post, Long>{
 
+    // 정렬할 때 사용하고 싶은 거는 POST가 가지고 있는 멤버변수 이름으로 넣으면 됨
+    // ▼ SELECT * FROM POSTS ORDER BY BOARD_NO DESC;
+    List<Post> findByOrderByBoardNoDesc();
     
 }
