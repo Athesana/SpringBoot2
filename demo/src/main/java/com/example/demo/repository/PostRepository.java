@@ -44,6 +44,19 @@ public interface PostRepository extends JpaRepository<Post, Long>{
     //         : 마지막에 세미콜론(;) 쓰지 않는다.
     //         : 콜론(:)은 변수가 들어가야(argument로 채워줄 부분은) 하는 부분은 :변수 라고 쓴다.
     //         : 같이 사용한다면 같은 변수를 써도 된다.
+    /*
+     * 순서 
+     * 1. from Post p 에서!
+     * 2. where 조건에 해당하는 것들로 추려서
+     * 3. select는 (p.boardNo, p.title, p.author, p.createdTime) 만 가져와서
+     * -----SQL
+     * 4. PostListResponseDto를 만드는 생성자를 호출하겠다.
+     * -----JAVA
+     * 
+     * -> 비록 PostListResponseDto에는 content가 없지만 Post에 있기 때문에 가능함
+     * 즉, 조회는 Post에서 하고 보여줄 것만 new ~ ( ~~ ) 에 적어준다.
+     * serachBykeyword() 이 메서드를 호출한 곳에서 "원하는" return 타입이 List<PostListResponseDto> 이기 때문에 그거에 맞춰준다.
+     */
     @Query(
     
         //"select p.boardNo, p.title, p.content, p.author, p.createdTime, p.modifiedTime " +
