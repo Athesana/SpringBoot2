@@ -32,7 +32,6 @@ public class HomeController {
         List<PostListResponseDto> list = postService.read();
         
         model.addAttribute("posts", list);
-        model.addAttribute("gg", "gg");
         
         //return "/example/index"; // VIEW(html) 의 이름과 경로
         return "home"; // templates/home.html

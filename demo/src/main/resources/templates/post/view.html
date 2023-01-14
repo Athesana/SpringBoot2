@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/base.html}">
+
+<div layout:fragment="header">
+    <div th:replace="~{ layout/header-frag::header('포스트 상세보기 페이지')}"></div>
+</div>
+
+<div layout:fragment="content">
+
+    <div class="card my-2">
+        <div class="card-header">
+            <h5>포스트 상세보기</h5>
+        </div>
+        <div class="card-body">
+            <form id="cardModify">
+                <div class="my-2">
+                    <label for="boardNo" class="form-label">글번호</label>
+                    <input id="boardNo" class="form-control" th:value="${post.boardNo}" readonly="readonly" />
+                </div>
+                <div class="my-2">
+                    <label for="title" class="form-label">글제목</label>
+                    <input id="title" class="form-control" th:value="${post.title}" readonly="readonly" />
+                </div>
+                <div class="my-2">
+                    <label for="author" class="form-label">작성자</label>
+                    <input id="author" class="form-control" th:value="${post.author}" readonly="readonly" />
+                </div>
+                <div class="my-2">
+                    <label for="content" class="form-label">글내용</label>
+                    <textarea rows="5" id="content" class="form-control" th:text="${post.content}" readonly="readonly"></textarea>
+                </div>
+                <div class="my-2">
+                    <label for="createdTime" class="form-label">글 작성 시간</label>
+                    <input id="createdTime" class="form-control" th:value="${ #temporals.format(post.createdTime, 'YYYY-MM-DD HH:mm:ss') }" readonly="readonly" />
+                </div>
+                <div class="my-2">
+                    <label for="modifiedTime" class="form-label">글 수정 시간</label>
+                    <input id="modifiedTime" class="form-control" th:value="${ #temporals.format(post.modifiedTime, 'YYYY-MM-DD HH:mm:ss') }" readonly="readonly" />
+                </div>
+            </form>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-primary" th:href="@{ /post/modify/{boardNo} (boardNo=${post.boardNo}) }">수정</a>
+        </div>
+    </div>
+</div>
+
+</html>

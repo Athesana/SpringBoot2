@@ -1,11 +1,14 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dto.PostCreateRequestDto;
 import com.example.demo.dto.PostListResponseDto;
+import com.example.demo.dto.PostUpdateRequestDto;
 import com.example.demo.repository.Post;
 import com.example.demo.repository.PostRepository;
 
@@ -48,6 +51,7 @@ public class PostService {
     }
 
     // 게시글 조회
+    @Transactional(readOnly = true) // 서버 부하가 줄어든다. 변경될 일이 없다는 뜻.
     public List<PostListResponseDto> read() {
         log.info("read() 호출");
         
@@ -62,10 +66,79 @@ public class PostService {
         return list.stream().map(PostListResponseDto::fromEntity).toList();
     }
 
+    @Transactional(readOnly = true)
+    public Post read(Long no) {
+        log.info("read(id={})", no);
+        
+        // PK로 검색한 데이터 1개, 근데 PK가 존재하지 않으면 값이 없기 때문에 JPA repository 인터페이스에서는 Entity를 원소로 갖는 Optional 타입을 리턴한다.
+        // => 데이터가 있을 수도 있고 없을 수도 있는 객체다.
+        // Optional에서 Post를 꺼내야 된다.
+        return postRepository.findById(no).orElseThrow();
+    }
     
+    @Transactional // 검색된 엔터티를 수정하면 별도의 save 메서드 호출없이 자동으로 엔터티가 저장된다.(update 문이 실행된다.)
+    public Long modifyPost(Long boardNo, PostUpdateRequestDto postDto) {
+        log.info("modifyPost(id={}, dto={})", boardNo, postDto);
+        
+        // id로 먼저 검색을 해
+        Post entity = postRepository.findById(boardNo).orElseThrow();
+        // 검색된 엔티티를 수정해 (update 하면서 commit 이 일어남)
+        // update 메서드는 Post.java 클래스에 정의되어 있음
+        entity.update(postDto.getTitle(), postDto.getContent());
+        
+        // postRepository의 save(entity) 메서드 호출이 필요 없다.
+        // 수정하긴 했는데, 값이 변한게 없다면 update는 쓸데 없이 한 번 더 update 문 돌리지 않고 select 한 걸로 그친다.
+        
+        return entity.getBoardNo();
+    }
+
+    public Long deletePost(Long boardNo) {
+        log.info("delete(id={})", boardNo);
+        
+        postRepository.deleteById(boardNo);
+        
+        return boardNo; // 삭제된 포스트의 고유 번호를 리턴한다.
+    }
+
+    public List<PostListResponseDto> search(String type, String keyword) {
+        log.info("search(type={}, keyword={})", type, keyword);
+        
+        // 검색 타입별로 실행할 postRepository의 메서드(SQL 문장)가 다르다.
+        // 커스텀 쿼리를 만들어야된다.
+        List<PostListResponseDto> list = null;
+        switch (type) {
+        case "title": {
+            list = postRepository.findByTitleContainsIgnoreCaseOrderByBoardNoDesc(keyword)
+                    .stream()
+                    .map(PostListResponseDto::fromEntity)
+                    .toList();
+            break;
+        }
+        case "content": {
+            list = postRepository.findByContentContainsIgnoreCaseOrderByBoardNoDesc(keyword)
+                    .stream()
+                    .map(PostListResponseDto::fromEntity)
+                    .toList();
+            break;
+        }
+        case "all": {
+            list = postRepository.serachBykeyword(keyword);
+            break;
+        }
+        case "author": {
+            list = postRepository.findByAuthorContainsIgnoreCaseOrderByBoardNoDesc(keyword)
+                    .stream()
+                    .map(PostListResponseDto::fromEntity)
+                    .toList();
+            break;
+        }
+        default:
+            throw new IllegalArgumentException("Unexpected value: " + type);
+        }
+                
+        return list;
+    }
 
 
-    
-    
     
 }

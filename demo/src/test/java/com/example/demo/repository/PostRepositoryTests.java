@@ -10,6 +10,8 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.example.demo.dto.PostListResponseDto;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -104,6 +106,32 @@ public class PostRepositoryTests {
         Assertions.assertEquals(2, count);
         log.info("delete 호출 후 record 개수 : {}", postRepository.count()); 
     }
+    
+    @Test
+    @Order(5)
+    public void testSearch() {
+        //List<Post> list =  postRepository.findByTitleContainsIgnoreCaseOrderByBoardNoDesc("제"); // 전체 검색 (select 문)
+        //List<Post> list =  postRepository.findByTitleContainsIgnoreCaseOrContentContainsIgnoreCaseOrderByBoardNoDesc("3", "3");
+        List<PostListResponseDto> list = postRepository.serachBykeyword("3");
+        
+        for(PostListResponseDto p : list) {
+            log.info("search 제목 테스트 " + p.toString() );             
+        }
+    }
+    
+    @Test
+    @Order(6)
+    public void testSearch2() {
+        List<Post> list =  postRepository.findByContentContainsIgnoreCaseOrderByBoardNoDesc("내용3") ; // 전체 검색 (select 문)
+        int searchCnt = 0;
+        for(Post p : list) {
+            searchCnt++;
+        }
+        
+        Assertions.assertEquals(1, searchCnt);
+        log.info("search 내용 테스트 : {}", searchCnt);     
+    }
+    
     
     
 }

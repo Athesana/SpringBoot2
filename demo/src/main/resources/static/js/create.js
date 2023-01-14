@@ -20,7 +20,7 @@
             return;
         }
         
-        // 서버로 ajax 요청에 포함시켜서 보낼 데이터
+        // 서버로 ajax 요청에 포함시켜서 보낼 데이터 object를 만듬
         const data = {
             title : postTitle,
             author : postAuthor,
@@ -31,8 +31,8 @@
         axios.post('/api/post', data)
             //성공 시 동작할 콜백 함수를 등록한다.
             .then(function (response) {
-                alert(`No.${response.data} 포스트 작성 완료`);
-                location.href = '/';
+                alert(`No.${response.data} 포스트 작성 완료`); // 작성완료한 글번호 alert으로 띄움
+                location.href = '/'; // "다시 목록을 보여주세요." 다시 요청이 감
             })
             // 에러 처리 콜백 함수를 등록한다.
             // 실제 작동되는 시점은 서버에서 리턴을 해줬을 때 이 함수가 "호출"된다.
