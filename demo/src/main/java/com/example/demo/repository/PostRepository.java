@@ -68,5 +68,7 @@ public interface PostRepository extends JpaRepository<Post, Long>{
         "order by p.boardNo desc"
     )
     List<PostListResponseDto> serachBykeyword(@Param("keyword") String keyword);
+    // 이 메서드의 내용은 스프링에서 만들어준다.
+    //List 안에 있는 PostListResponseDto를 어떻게 만들건지 방법을 알려줘야 한다. -> java 문법 필요 : PostListResponseDto(~안의 argument를 가지고) 라는 생성자를 호출하게 된다.
     
 }

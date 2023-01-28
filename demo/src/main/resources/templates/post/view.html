@@ -41,7 +41,10 @@
                 </div>
             </form>
         </div>
-        <div class="card-footer">
+        <div class="card-footer" th:if="${#authentication.name == post.author}">
+        <!-- 
+        <div class="card-footer" th:if="${#authentication.name} == ${post.author}"> 도 가능함
+         -->
             <a class="btn btn-primary" th:href="@{ /post/modify/{boardNo} (boardNo=${post.boardNo}) }">수정</a>
         </div>
     </div>

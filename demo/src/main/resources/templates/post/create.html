@@ -21,7 +21,7 @@
                 </div>
                 <div class="my-2">
                     <label for="author" class="form-label">작성자</label>
-                    <input id="author" type="text" class="form-control" />
+                    <input id="author" type="text" class="form-control" th:value="${#authentication.name}" readonly/>
                 </div>
                 <div class="my-2">
                     <label for="content" class="form-label">내용</label>

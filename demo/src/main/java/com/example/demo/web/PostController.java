@@ -2,6 +2,7 @@ package com.example.demo.web;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,13 +26,15 @@ public class PostController {
     
     // (1) final 필드를 선언 (2) required-args constructor(final 필드를 초기화 하는 생성자) => 의존성 주입이 된다. (컨트롤러가 사용할 postService 객체를 주입받게 된다.)
     private final PostService postService;
-
+    
+    @PreAuthorize("hasRole('USER')") // Controller 메서드 실행 전에, 로그인 권한이 있는지를 검사한다.
     @GetMapping("/create") // 클래스에 @RequestMapping 설정이 있기 때문에 실제 이 메서드가 처리하는 요청 주소는 /post/create 이다.
     public void create() {
         log.info("create() 호출");
         /*메서드 리턴타입이 void일 때는 리턴하는 view이름이 없기 때문에 spring은 요청주소랑 동일한 이름인 create.html을 찾는다.*/
     }
     
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/view/{boardNo}") // 포스트 글번호의 상세 내용 보여주기 기능
     public String view(@PathVariable(name="boardNo") Long no, Model model ) {
         log.info("view(id={})", no);
@@ -44,6 +47,7 @@ public class PostController {
         return "/post/view";
     }
     
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/modify/{boardNo}") // 포스트 글번호의 상세 내용 보여주기 기능
     public String modify(@PathVariable Long boardNo, Model model ) {
         log.info("modify(id={})", boardNo);

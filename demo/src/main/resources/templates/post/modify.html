@@ -33,7 +33,7 @@
                 </div>
             </form>
         </div>
-        <div class="card-footer">
+        <div class="card-footer" th:if="${#authentication.name} == ${post.author}">
             <div class="d-flex justify-content-end">
                 <a class="btn btn-outline-secondary me-2" th:href="@{ /post/view/{boardNo} (boardNo=${post.boardNo}) }">취소</a>
                 <button class="btn btn-outline-danger me-2" id="btnDelete">삭제</button>                
